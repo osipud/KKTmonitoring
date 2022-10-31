@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>\\192.168.1.1\общая папка\kkt-status-site2</_PublishTargetUrl>
+    <History>True|2022-08-05T10:58:10.6939832Z;True|2022-08-05T13:47:58.7152742+03:00;True|2022-08-05T13:47:05.4130382+03:00;True|2022-08-05T13:46:38.7311318+03:00;True|2022-08-05T13:40:40.0431291+03:00;True|2022-08-05T13:31:26.2175370+03:00;True|2022-08-05T11:09:12.8143913+03:00;True|2022-08-05T10:02:58.2801099+03:00;True|2022-08-03T13:14:30.7909428+03:00;True|2022-08-03T11:37:12.4145060+03:00;True|2022-08-03T11:36:05.7515981+03:00;True|2022-08-03T11:06:31.8700615+03:00;True|2022-08-02T23:40:00.0110035+03:00;</History>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,109 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "KKT STATUS";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Мониторинг состояния ККТ</h1>
+</div>
+    <meta http-equiv="Refresh" content="1800" /> @*Автоматическое обновление страницы*@
+
+
+<table class="table">
+            <thead>
+                <tr><th>ККТ</th>
+                    <th>Статус</th>
+                    <th>ФН</th>
+                    <th>Версия ПО</th>
+                    <th>Номер последнего документа</th>
+                    <th>Дата последнего документа</th>
+                    <th>Остаток ресурсов</th>
+                    <th>Процент заполнения</th>
+                    </tr>
+            </thead>
+            @{
+            foreach(var device in @Model.devlist)
+            {
+                    <tbody>
+                            <tr>
+                            <th>@device.DeviceId</th>
+                            <th>
+                            @{
+                            if (@device.ResidualProcent > 98 && @device.LastDocumentDateTimeSpan > 120)
+                            {        
+                                                <div type="" class="btn btn-danger btn-circle btn-sm" title="Критический уровень фискального накопителя&#013;Документы на фискализацию отсутствовали более 2 часов&#013;"></div> 
+                            }
+                            else if (@device.ResidualProcent > 98)
+                            {        
+                                                <div type="" class="btn btn-danger btn-circle btn-sm" title="Критический уровень фискального накопителя&#013;"></div>
+                            }
+                            else if (@device.ResidualProcent <= 98 && @device.ResidualProcent >= 95)
+                            {       
+                                                <div type="" class="btn btn-warning btn-circle btn-sm" title="Фискальный накопитель почти полон"></div>                            
+                            }
+                            else if (@device.ResidualProcent <= 98 && @device.ResidualProcent >= 95 && @device.LastDocumentDateTimeSpan > 120)
+                            {       
+                                                <div type="" class="btn btn-warning btn-circle btn-sm" title="Фискальный накопитель почти полон&#013;Документы на фискализацию отсутствовали более 2 часов&#013;"></div>
+                            }
+                            else if (@device.LastDocumentDateTimeSpan > 120)
+                            {       
+                                                <div type="" class="btn btn-warning btn-circle btn-sm" title="Документы на фискализацию отсутствовали более 2 часов&#013;"></div>
+                            }
+                            else if (@device.ResidualProcent == 0 && @device.LastDocumentNumber == 0)
+                            {        
+                                                <div type="" class="btn btn-danger btn-circle btn-sm" title="Требуется внимание&#013;Устройство работает некорректно&#013;"></div> 
+                            }
+                            else
+                            {        
+                                                <div type="" class="btn btn-success btn-circle btn-sm" title="Устройство исправно"></div>
+                            }
+                            }
+                                     </th>
+                                     <th>@device.FiscalStoreNumber</th>
+                                     <th>@device.SoftwareVersion</th>
+                                     <th>@device.SpentResource</th>
+                                     <th>
+                                    @{
+                                if(@device.LastDocumentDate == Convert.ToDateTime("01.01.2000"))
+                                {
+                                                    <div>-</div>
+                                }
+                                else
+                                {
+                                            <div>@device.LastDocumentDate</div>
+                                }
+                                    }
+                                                </th>
+                                     <th>@device.ResidualResource</th>
+                                     <th>
+                                        @{
+                                if (@device.ResidualProcent < 95)
+                                {
+                                            <div class="progress" style="background: #D3D3D3;" title="@device.ResidualProcent%">
+                                                <div class="progress-bar" role="progressbar" style="width: @device.ResidualProcent%;" aria-valuenow="@device.ResidualProcent" aria-valuemin="0" aria-valuemax="100" title="@device.ResidualProcent%">@device.ResidualProcent%</div> 
+                                            </div>
+
+                                }
+                                else if (@device.ResidualProcent <= 98 && @device.ResidualProcent >= 95)
+                                {
+                                            <div class="progress" style="background: #D3D3D3;" title="@device.ResidualProcent%">
+                                                <div class="progress-bar bg-warning" role="progressbar" style="width: @device.ResidualProcent%;" aria-valuenow="@device.ResidualProcent" aria-valuemin="0" aria-valuemax="100" title="@device.ResidualProcent%">@device.ResidualProcent%</div>
+                                            </div>
+                                }
+                                else if (@device.ResidualProcent > 98)
+                                {
+                                            <div class="progress" style="background: #D3D3D3;" title="@device.ResidualProcent%">
+                                                <div class="progress-bar bg-danger" role="progressbar" style="width: @device.ResidualProcent%;" aria-valuenow="@device.ResidualProcent" aria-valuemin="0" aria-valuemax="100" title="@device.ResidualProcent%">@device.ResidualProcent%</div>
+                                            </div>
+                                }
+                                }
+                             </th>
+                             </tr>
+                    </tbody>
+            
+                }
+            }
+</table>
+
